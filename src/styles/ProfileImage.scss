@@ -1,0 +1,13 @@
+@import './Theme.scss';
+.profile-image {
+    min-height: $height-md;
+    img {
+        max-width: $width-md;
+        max-height: $height-lg;
+        transition: transform .5s;
+        &:hover {
+            transform: scale(1.2); 
+            cursor: pointer;
+        }
+    }
+}

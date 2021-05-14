@@ -1,0 +1,16 @@
+@import './Theme.scss';
+.list {
+    color: $color-poke-blue;
+    display: inline-block;
+    max-width: $max-width;
+    overflow: hidden;
+    .pagination-root {
+        display: inline-block;
+        margin: $padding-md 0px;
+    }
+}
+.error {
+    color: $color-error;
+    font-weight: bold;
+    padding-top: $padding-xl;
+}

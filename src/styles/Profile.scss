@@ -1,0 +1,17 @@
+@import './Theme.scss';
+.profile {
+    margin: $padding-md;
+    padding: $padding-md;
+    h1{
+        font-size: $font-size-title;
+    }
+    .profile-title {
+        line-height: $line-height-md;
+        font-weight: bold;
+        a {
+            cursor: pointer;
+            text-decoration: none;
+            color: $color-poke-blue;
+        }
+    }
+}
