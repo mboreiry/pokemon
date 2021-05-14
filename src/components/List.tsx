@@ -1,36 +1,52 @@
 import React, { useState, useEffect } from 'react';
 import Pagination from '@material-ui/lab/Pagination';
+import { useRouteMatch, useHistory } from 'react-router-dom';
 import { limit, pokeUrl } from '../config/config';
-import { fetchUrl } from '../services/PokeService';
+import { delay, fetchUrl } from '../services/PokeService';
 import { Page } from '../types/Page';
 import Loading from './Loading';
 import Profile from './Profile';
 import '../styles/List.scss'
 
+interface ListParams {
+    pageNo: string;
+}
+
 const List: React.FC = (props) => {
+    const routeMatch = useRouteMatch<ListParams>();
+    const history = useHistory();
     const [loading, setLoading] = useState(false);
     const [page, setPage] = useState<Page>();
-    const [pageNo, setPageNo] = useState(1);
+    const [pageNo, setPageNo] = useState(0);
 
     useEffect(() => {
-        getPage(`${pokeUrl}?limit=${limit}`);
-    }, []);
+        const urlPageNo = parseInt(routeMatch.params.pageNo);
+        let url = `${pokeUrl}?limit=${limit}`;
+        if (!isNaN(urlPageNo)) {
+            setPageNo(urlPageNo);
+            url = `${pokeUrl}?offset=${(urlPageNo - 1) * limit}&limit=${limit}`;
+        }
+        getPage(url);
+    }, [pageNo]);
 
     async function getPage(url: string) {
         setLoading(true);
         setPage(await fetchUrl(url));
+        delay(500);
         setLoading(false);
     }
-    
+
     const body = (loading) ? <Loading /> :
         (page?.results?.length) ?
             <>
                 {page.results.map((item, index) => {
-                    return <Profile key={"poke" + index} pokeUrl={item} />
+                    return <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12" >
+                        <Profile key={"poke" + index} pokeUrl={item} pageNo={pageNo} hasLink={true} />
+                    </div>
                 })}
                 <div>
                     <Pagination classes={{ root: 'pagination-root' }}
-                        count={(page?.count) ? Math.floor(page.count / limit) : 0}
+                        count={(page?.count) ? Math.ceil(page.count / limit) : 0}
                         page={pageNo} onChange={handlePageChange} />
                 </div>
             </>
@@ -43,8 +59,8 @@ const List: React.FC = (props) => {
         </div>
     )
     function handlePageChange(event: React.ChangeEvent<unknown>, newPage: number) {
-        setPageNo(newPage)
-        getPage(`${pokeUrl}?offset=${(newPage) * limit}&limit=${limit}`);
+        setPageNo(newPage);
+        history.push(`/page/${newPage}`);
     }
 }
 export default List;

@@ -8,10 +8,10 @@
     .profile-title {
         line-height: $line-height-md;
         font-weight: bold;
-        a {
-            cursor: pointer;
-            text-decoration: none;
-            color: $color-poke-blue;
-        }
+    }
+    a {
+        cursor: pointer;
+        text-decoration: none;
+        color: $color-poke-blue;
     }
 }

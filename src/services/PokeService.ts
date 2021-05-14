@@ -4,7 +4,7 @@ export async function fetchUrl(url: string) {
 }
 
 export function getPokeId(url: string) {
-    const tmpUrl = url.substr(0, url.length - 1);
+    const tmpUrl = (url.charAt(url.length-1) == '/') ? url.substr(0, url.length - 1) : url;
     return tmpUrl.substr(tmpUrl.lastIndexOf('/') + 1);
 }
 
@@ -31,7 +31,7 @@ async function execute(edge: string, defaultValue: any): Promise<any> {
     }
 }
 
-function delay(millis: number): Promise<void> {
+export function delay(millis: number): Promise<void> {
     return new Promise(resolve => setInterval(() => resolve(), millis))
 }
 

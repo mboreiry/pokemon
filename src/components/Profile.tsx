@@ -8,26 +8,32 @@ import '../styles/Profile.scss';
 
 interface ProfileProps {
     pokeUrl: Info;
+    pageNo: number;
+    hasLink?: boolean;
 }
 
 const Profile: React.FC<ProfileProps> = (props) => {
-    const { pokeUrl } = props;
-
+    const { pokeUrl, hasLink, pageNo } = props;
+    const body = (hasLink) ?
+        <Link className="router" to={(hasLink) ? `/pokemon/${pageNo}/${getPokeId(pokeUrl.url)}` : "#"}>
+            {getProfile()}
+        </Link> : getProfile();
     return (
-        <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12" >
-            <Paper elevation={3} className="profile" >
-                <ProfileImage url={pokeUrl.url} />
-                <div className="profile-title">
-                    <Link className="router" to={`/pokemon/${getPokeId(pokeUrl.url)}`}>
-                        {(pokeUrl.name.length > 12) ?
-                            <Tooltip title={pokeUrl.name}>
-                                <h1>{pokeUrl.name.substr(0, 10) + "..."}</h1>
-                            </Tooltip> : <h1>{pokeUrl.name}</h1>}
-                    </Link>
-                </div>
-            </Paper>
-        </div>
+        <Paper elevation={3} className="profile" >
+            {body}
+        </Paper>
     )
+    function getProfile() {
+        return (
+            <> <ProfileImage url={pokeUrl.url} />
+                <div className="profile-title">
+                    {(pokeUrl.name.length > 12) ?
+                        <Tooltip title={pokeUrl.name}>
+                            <h1>{pokeUrl.name.substr(0, 10) + "..."}</h1>
+                        </Tooltip> : <h1>{pokeUrl.name}</h1>}
+                </div></>
+        )
+    }
 }
 
 export default Profile;
