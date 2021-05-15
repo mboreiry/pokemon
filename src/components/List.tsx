@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Pagination from '@material-ui/lab/Pagination';
 import { useRouteMatch, useHistory } from 'react-router-dom';
 import { limit, pokeUrl } from '../config/config';
-import { delay, fetchUrl } from '../services/PokeService';
+import { fetchUrl } from '../services/PokeService';
 import { Page } from '../types/Page';
 import Loading from './Loading';
 import Profile from './Profile';
@@ -17,7 +17,7 @@ const List: React.FC = (props) => {
     const history = useHistory();
     const [loading, setLoading] = useState(false);
     const [page, setPage] = useState<Page>();
-    const [pageNo, setPageNo] = useState(0);
+    const [pageNo, setPageNo] = useState(1);
 
     useEffect(() => {
         const urlPageNo = parseInt(routeMatch.params.pageNo);
@@ -32,7 +32,6 @@ const List: React.FC = (props) => {
     async function getPage(url: string) {
         setLoading(true);
         setPage(await fetchUrl(url));
-        delay(500);
         setLoading(false);
     }
 
@@ -50,7 +49,7 @@ const List: React.FC = (props) => {
                         page={pageNo} onChange={handlePageChange} />
                 </div>
             </>
-            : <div className="error"> No pokemon found! try again later... </div>;
+            : <div className="error" data-test="error"> No pokemon found! try again later... </div>;
     return (
         <div className="list">
             <div className="row">

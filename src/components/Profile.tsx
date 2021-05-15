@@ -10,22 +10,23 @@ interface ProfileProps {
     pokeUrl: Info;
     pageNo: number;
     hasLink?: boolean;
+    size?: string;
 }
 
 const Profile: React.FC<ProfileProps> = (props) => {
-    const { pokeUrl, hasLink, pageNo } = props;
+    const { pokeUrl, hasLink, pageNo, size} = props;
     const body = (hasLink) ?
         <Link className="router" to={(hasLink) ? `/pokemon/${pageNo}/${getPokeId(pokeUrl.url)}` : "#"}>
             {getProfile()}
         </Link> : getProfile();
     return (
-        <Paper elevation={3} className="profile" >
+        <Paper className="profile" >
             {body}
         </Paper>
     )
     function getProfile() {
         return (
-            <> <ProfileImage url={pokeUrl.url} />
+            <>  <ProfileImage url={pokeUrl.url} size={size} />
                 <div className="profile-title">
                     {(pokeUrl.name.length > 12) ?
                         <Tooltip title={pokeUrl.name}>

@@ -1,8 +1,18 @@
 @import './Theme.scss';
-.profile-image {
+.profile-md {
     min-height: $height-md;
+    min-width: $width-sm;
     img {
         max-width: $width-md;
         max-height: $height-lg;
     }
 }
+.profile-sm {
+    min-height: $height-sm;
+    min-width: $width-sm;
+    img {
+        max-width: $width-sm;
+        max-height: $height-md;
+    }
+}
+    

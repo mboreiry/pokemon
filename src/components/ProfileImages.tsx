@@ -6,10 +6,11 @@ import '../styles/ProfileImage.scss';
 
 interface ProfileProps {
     url: string;
+    size?: string;
 }
 
 const ProfileImage: React.FC<ProfileProps> = (props) => {
-    const { url } = props;
+    const { url, size } = props;
     const [pokeImg, setPokeImg] = useState<string | undefined>();
 
     useEffect(() => {
@@ -26,12 +27,11 @@ const ProfileImage: React.FC<ProfileProps> = (props) => {
     }, [])
 
     return (
-        <div className="profile-image">
-            {pokeImg ? (
+        <div className={(size === "sm") ? "profile-sm" : "profile-md"}>
+            {(pokeImg) ?
                 <img alt="pokemon" loading="lazy" src={pokeImg} />
-            ) : (
-                <Skeleton variant="rect" width="100%" height={150} />
-            )}
+                : <Skeleton variant="rect" width="100%" height={(size === "sm") ? "100px" : "150px"} />
+            }
         </div>
     )
 }

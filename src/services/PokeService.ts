@@ -1,16 +1,24 @@
+import { pokeUrl } from "../config/config";
+
 export async function fetchUrl(url: string) {
-    await delay(1000);
+    // await delay(1000);
     return execute(url, null);
 }
 
 export function getPokeId(url: string) {
-    const tmpUrl = (url.charAt(url.length-1) == '/') ? url.substr(0, url.length - 1) : url;
+    const tmpUrl = (url.charAt(url.length - 1) === '/') ? url.substr(0, url.length - 1) : url;
     return tmpUrl.substr(tmpUrl.lastIndexOf('/') + 1);
 }
 
 export async function getPokeImage(id: string) {
-    await delay(1000);
+    // await delay(1000);
     return `https://pokeres.bastionbot.org/images/pokemon/${id}.png`;
+}
+
+export async function getSpecies(id: number) {
+    if (id) {
+        return execute(`${pokeUrl}-species/${id}`, null);
+    }
 }
 
 async function execute(edge: string, defaultValue: any): Promise<any> {
