@@ -44,7 +44,7 @@ const Evolutions: React.FC<IEvolutionsProp> = (props) => {
         return ids;
     }
     async function getEvolutions(ids: number[]) {
-        // get pokemon Evolution objs
+        // get pokemon Evolution objects
         if (!ids?.length) {
             return null;
         }
@@ -59,7 +59,7 @@ const Evolutions: React.FC<IEvolutionsProp> = (props) => {
         (evolutions?.length) ? <div className="grid-container">
             {evolutions?.map((ev, index) => {
                 return <Profile key={"ev" + index} pokeUrl={{ name: ev.name, url: `${pokeUrl}/${ev.id}` }} size="sm" pageNo={pageNo} />
-            })} </div> : <div className="error"> No evalution found !</div>
+            })} </div> : <div className="error"> No evaluation found !</div>
         : <Skeleton variant="rect" width="100%" height={200} />;
     return (
         <div className="evolution">

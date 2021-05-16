@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import Chip from '@material-ui/core/Chip';
 import { useRouteMatch, Link } from 'react-router-dom';
 import { pokeUrl } from '../config/config';
 import { fetchUrl } from '../services/PokeService';
-import Info from '../types/Info';
 import Pokemon from '../types/Pokemon';
 import Profile from './Profile';
 import Evolutions from './Evolutions';
 import Loading from './Loading';
 import '../styles/Detail.scss';
+import Feature from './Feature';
 
 interface PokemonParams {
     pokeId: string;
@@ -21,7 +20,7 @@ const Detail: React.FC = (props) => {
     const routeMatch = useRouteMatch<PokemonParams>();
     const pageNo = parseInt(routeMatch.params.pageNo);
     const pokeId = parseInt(routeMatch.params.pokeId);
-    
+
     useEffect(() => {
         (async () => {
             setLoading(true)
@@ -40,36 +39,11 @@ const Detail: React.FC = (props) => {
                     <div className="col-md-8 col-sm-12" style={{ paddingLeft: 24 }}>
                         <br />
                         <div className="detail-features">
-                            <div className="detail-title">
-                                <span className="bullet">&#8226;</span>Abilities:
-                            </div>
-                            <div>
-                                {pokemon.abilities.map((item: { ability: Info }) =>
-                                    <Chip key={item.ability.name} color="primary" label={item.ability.name} variant="outlined" />)}
-                            </div>
-                            <div className="detail-title">
-                                <span className="bullet">&#8226;</span>Types:
-                            </div>
-                            <div>
-                                {pokemon.types.map((item: { type: Info }) =>
-                                    <Chip key={item.type.name} color="primary" label={item.type.name} variant="outlined" />)}
-                            </div>
-                            <div className="detail-title">
-                                <span className="bullet">&#8226;</span> Stats:
-                            </div>
-                            <div>
-                                {pokemon.stats.map((item: { stat: Info }) =>
-                                    <Chip key={item.stat.name} color="primary" label={item.stat.name} variant="outlined" />)}
-                            </div>
-                            <div className="detail-title">
-                                <span className="bullet">&#8226;</span>Moves:
-                            </div>
-                            <div className="detail-moves">
-                                {(pokemon.moves.map((item: { move: Info }) => item.move.name + ", "))}
-                            </div>
-                            <div className="detail-title">
-                                <span className="bullet">&#8226;</span>Evolutions:
-                            </div>
+                            <Feature title="Abilities" featureName="ability" feature={pokemon.abilities} />
+                            <Feature title="Types" featureName="type" feature={pokemon.types} />
+                            <Feature title="Stats" featureName="stat" feature={pokemon.stats} />
+                            <Feature title="Moves" featureName="move" feature={pokemon.moves} showAsText={true} />
+                            <Feature title="Evolutions" featureName="" feature={[]} showAsText={true} />
                             <div>
                                 <Evolutions pokemon={pokemon} pageNo={pageNo} />
                             </div>
@@ -83,7 +57,7 @@ const Detail: React.FC = (props) => {
                 </div>
             </div>
             : <div className="error" data-test="error">
-                Something wrong occured while loading the page!
+                Something wrong occurred while loading the page!
                 Please back to Main page and try again
             </div>;
 

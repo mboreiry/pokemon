@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import Pagination from '@material-ui/lab/Pagination';
 import { useRouteMatch, useHistory } from 'react-router-dom';
 import { limit, pokeUrl } from '../config/config';
@@ -26,32 +26,29 @@ const List: React.FC = (props) => {
             setPageNo(urlPageNo);
             url = `${pokeUrl}?offset=${(urlPageNo - 1) * limit}&limit=${limit}`;
         }
-        getPage(url);
+        (async () => {
+            setLoading(true);
+            setPage(await fetchUrl(url));
+            setLoading(false);
+        })();
     }, [pageNo]);
-
-    async function getPage(url: string) {
-        setLoading(true);
-        setPage(await fetchUrl(url));
-        setLoading(false);
-    }
-
     const body = (loading) ? <Loading /> :
         (page?.results?.length) ?
-            <>
+            <Fragment>
                 {page.results.map((item, index) => {
                     return <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12" >
                         <Profile key={"poke" + index} pokeUrl={item} pageNo={pageNo} hasLink={true} />
                     </div>
                 })}
-                <div>
+                <div data-test="pokemons">
                     <Pagination classes={{ root: 'pagination-root' }}
                         count={(page?.count) ? Math.ceil(page.count / limit) : 0}
                         page={pageNo} onChange={handlePageChange} />
                 </div>
-            </>
+            </Fragment>
             : <div className="error" data-test="error"> No pokemon found! try again later... </div>;
     return (
-        <div className="list">
+        <div className="list" >
             <div className="row">
                 {body}
             </div>

@@ -1,0 +1,18 @@
+@import './Theme.scss';
+.feature {
+    .bullet{
+        font-size: $font-size-md;
+        color: $color-poke-yellow;
+    }
+    .feature-title{
+        line-height: $line-height-md;
+        font-weight: bold;
+        width: 100%;
+        text-align: left;
+
+    }
+    .feature-text{
+        text-align: justify;
+        padding-right: $padding-md;
+    }
+}

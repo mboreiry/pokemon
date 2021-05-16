@@ -25,12 +25,14 @@ const ProfileImage: React.FC<ProfileProps> = (props) => {
             };
         })();
     }, [])
-
     return (
         <div className={(size === "sm") ? "profile-sm" : "profile-md"}>
             {(pokeImg) ?
-                <img alt="pokemon" loading="lazy" src={pokeImg} />
-                : <Skeleton variant="rect" width="100%" height={(size === "sm") ? "100px" : "150px"} />
+                <img alt="pokemon" data-test="pokeImages" loading="lazy" src={pokeImg} />
+                :
+                <div data-test="skeleton">
+                    <Skeleton variant="rect" width="100%" height={(size === "sm") ? "100px" : "150px"} />
+                </div>
             }
         </div>
     )

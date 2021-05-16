@@ -1,46 +1,66 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Title
 
-## Available Scripts
+Pokemon Api
 
-In the project directory, you can run:
+## Table of contents
+* [General info](#general-info)
+* [Components](#Components)
+* [Services](#Services)
+* [Technologies](#technologies)
+* [Setup](#setup)
 
-### `npm start`
+## General info
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+This app displays a Pokedex of all existing Pokemon, using the PokeAPI (https://pokeapi.co/), a list can be the result of a user search(As the user search process is ignored so the project starts from the results screen).
+You can see pokemon detail and its evolution by clicking on each pokemon.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Components
+"List.tsx" : In this component the list of pokemons shows, by changing the page number(in bottom of the page) you can move to other pages.
 
-### `npm test`
+"Profile.tsx" : This component shows pokemon profile (containing its name and image).
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+"ProfileImage.tsx" : This component is responsible to load pokemon image profile
+It consists of three state:
+- image is OK: show pokemon image
+- image is loading : shows skeleton
+- image is not found : shows default image
 
-### `npm run build`
+"Detail.tsx" : This component is responsible to show pokemon detail and its evolution.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+"Evolutions.tsx" : This component is responsible to load pokemon evolutions.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+"Loading.tsx" : A page to show during service calling.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Services
+"PokeService.ts" : All services at the app will be written in PokeService.js file.
 
-### `npm run eject`
+"executer": Is a function which is responsible for executing and managing request errors.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+"DefaultValue" : Is the parameter which tells the executor in a case of error what we expect to see. eg: [], {}, null
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+"onError function" : which is responsible for error handling, eg : log somewhere, show special error, call another func.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Technologies
+Project is created with:
+```
+	- react 17.0.2
+	- typescript 4.2.4
+	- sass 1.32.12
+	- material-ui/core 4.11.4
+	- material-ui/lab 4.0.0-alpha.58
+	- enzyme 3.11.0
+	- enzyme-adapter-react-16 1.15.6
+```
+	
+## Setup
+To run this project, install it locally using npm:
 
-## Learn More
+```
+$ cd ../pokemon
+$ npm install
+$ npm start
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).

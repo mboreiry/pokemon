@@ -16,7 +16,7 @@ interface ProfileProps {
 const Profile: React.FC<ProfileProps> = (props) => {
     const { pokeUrl, hasLink, pageNo, size} = props;
     const body = (hasLink) ?
-        <Link className="router" to={(hasLink) ? `/pokemon/${pageNo}/${getPokeId(pokeUrl.url)}` : "#"}>
+        <Link className="router" data-test="profileLink" to={(hasLink) ? `/pokemon/${pageNo}/${getPokeId(pokeUrl.url)}` : "#"}>
             {getProfile()}
         </Link> : getProfile();
     return (

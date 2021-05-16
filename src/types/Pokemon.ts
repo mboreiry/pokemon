@@ -6,9 +6,9 @@ export default interface Pokemon {
     order: number;
     weight: string;
     name: string;
-    abilities: { ability: Info }[];
+    abilities: [];
     forms: Info[];
-    moves: { move: Info }[];
-    types: { type: Info }[];
-    stats: { stat: Info }[];
+    moves: [];
+    types: [];
+    stats: [];
 }
